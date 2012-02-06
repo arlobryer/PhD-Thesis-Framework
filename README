@@ -1,6 +1,12 @@
 SCons Build Environment for LaTeX Theses
 ========================================
 
+NB: This structure and setup has been modified from the original framework at 
+http://www.kloss-familie.de/moin/TidBits/SconsLatexThesisSkeleton
+I've changed a few things round for better or worse and based the latex output on a very slightly modified
+verison of Andy Buckley's HepThesis.cls.
+The ReadMe below is taken from the first source.
+
 It is hard enough to write a thesis. And whoever has done some work
 using *larger* documents knows that it is well worth investing some
 effort into structure. This thesis skeleton tries to help in adding
