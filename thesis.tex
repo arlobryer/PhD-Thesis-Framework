@@ -1,0 +1,45 @@
+\documentclass[hyper,AGBdraft,nobind,oneside,noroman]{hepthesis}
+%Note: for the final build, remove 'draft' and 'final' options and
+%build with hyper
+%seems to build faster without hyper
+% \documentclass{agb_thesis}
+\usepackage{AGB_thesis}
+
+\makeatletter
+\@ifpackageloaded{hyperref}{%
+\hypersetup{%
+}
+}{}
+\makeatother
+
+% The path(s) to the graphics files:
+\graphicspath{{images/}{generated/}}
+
+% \listfiles
+
+\begin{document}
+\linenumbers 
+\title{Some Thesis}
+\author{Some Author}
+   
+\begin{frontmatter} 
+\titlepage[Other \\ Stuff]
+{More \\ Stuff}
+\input{chapters/Preface.tex}
+\end{frontmatter}
+  
+\begin{mainmatter}
+%%NOTE LOWER CASE 'i' IN INCLUDE
+\input{chapters/Introduction}
+
+\end{mainmatter}
+    
+% \appendix
+% \input{chapters/Appendix}
+
+% \begin{backmatter}
+% \bibliographystyle{plain}
+% \bibliography{thesis}
+% \end{backmatter}
+
+\end{document}

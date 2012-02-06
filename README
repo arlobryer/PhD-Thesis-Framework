@@ -1,0 +1,94 @@
+SCons Build Environment for LaTeX Theses
+========================================
+
+It is hard enough to write a thesis. And whoever has done some work
+using *larger* documents knows that it is well worth investing some
+effort into structure. This thesis skeleton tries to help in adding
+structure without adding a significant work overhead.
+
+ * structured directory hierarchy
+ * figures for the document go into separate directories for the
+   different chapter LaTeX sources
+ * build automation using SCons
+ * automatic generation of dependent/needed image files:
+   * generation of `pdflatex` compatible output file formats from EPS
+     figures
+   * generation of `latex` compatible output file format from
+     PDF/PNG/JPG figures
+   * generation of EPS and PDF output from GNUplot input files
+   * automatically finds image files for individual chapters to
+     process
+ * choice of DVI or PDF build target: `scons` or `scons dvi`
+ * "Easy as" cleaning of build junk: `scons -c` (or `scons -c dvi`)
+
+== Recipe ==
+
+ * Edit your thesis.tex to suit your needs.
+ * Make some configuration changes to build_config.py.
+ * Write your chapters into .tex files in `chapters/`.
+ * For figures:
+   * Add a directory with the chapter's name to `images/`, and place
+     chapter figures in there.
+   * GNUplot: Add a directory with the chapter's name to `images/`, and
+     place GNUplot source files (`*.gnuplot`) and corresponding data
+     files in there.
+   * Make sure that for every chapter directory you've got a
+     corresponding directory name in `generated/` where the builder
+     can place the generated dependent output files.
+ * To build, just type `scons` in the root directory of the
+   project. To get DVI or PDF output, you may also call `scons dvi` or
+   `scons pdf` respectively.
+ * To change the default from PDF to DVI output edit `build_config.py`.
+ * To clean up all junk (e. g. for submitting to a Version Control
+   System or for backup) use `scons -c` (or `scons -c dvi`).
+
+== Directory structure of this thesis skeleton ==
+
+./
+ |- thesis.tex                           <- * main LaTeX document
+ |- SConstruct                           <-   master build script
+ |- build_config.py                      <- * main document configuration
+ |- README                               <-   this file
+ |- aux/                                 <-   auxilary files
+ |  |- builders.SConscript               <-   config. of some builders
+ |  |- SConscript                        <-   sub build script
+ |  |- creativecommons.tex               <-   CC LaTeX macro definitions
+ |  `- __init__.py                       <-   needed for Python imports
+ |- chapters/                            <- * contains per chapter LaTeX
+ |  |- LicenseDisclaimer.tex             <- * LaTeX for LicenseDisclaimer
+ |  |- chap01.tex                        <- * LaTeX for chap01
+ |  |- chap02.tex                        <- * LaTeX for chap02
+ |  |- SConscript                        <-   sub build script
+ |  `- __init__.py                       <-   needed for Python imports
+ |- images/                              <- * sources for figures (GNUplot)
+ |  |- LicenseDisclaimer/                <-   
+ |  |  `- ... Creative Commons icons ... <-   PDF images for license page
+ |  |- chap01/                           <- * chap01 figures
+ |  |  `- icebert.png                    <- * a PNG figure for chap01
+ |  `- chap02/                           <- * chap02 figures
+ |     |- histogram_analysis.eps         <- * an EPS figure for chap02
+ |     |- Illuminants.gnuplot            <- * GNUplot imput file
+ |     |- IlluminantD65.txt              <- * data file for "Illuminants"
+ |     `- FluorescentIlluminants2.csv    <- * data file for "Illuminants"
+ `- generated/                           <- * output directory for generated images
+    |- LicenseDisclaimer/                <-   
+    |- chap02/                           <- 
+    `- chap02/                           <- 
+
+* Files/directories denoted with the asterisk "*" are the ones that
+  usually need modification for the specific LaTeX projects.
+
+
+== To Do ==
+
+ * Integrate a `makeindex` builder, which still requires manual
+   intervention.
+ * Automatically create (missing) directories to leave generated
+   output from figure format conversions.
+
+
+== Changelog ==
+ * added automatic detection of image files for chapters
+ * simplified the directory structure for images
+ * still possible to configure things in a `*_config.py` file per
+   chapter (if needed)
